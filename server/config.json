@@ -1,0 +1,3 @@
+{
+    "connectionString":"mongodb+srv://gunjan:gunjan123@job-tracker.rsl4y.mongodb.net/?retryWrites=true&w=majority&appName=Job-tracker"
+}

@@ -1,0 +1,15 @@
+.profile{
+    align-items: center;
+    justify-content: center;
+}
+
+.pic{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(30, 29, 29, 0.826);
+    font-weight:500;
+    background: rgba(183, 181, 181, 0.895);
+}
