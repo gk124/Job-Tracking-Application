@@ -159,7 +159,11 @@ const Home = () => {
 
           <tbody>
             {currentJobs.map((item) => (
-              <tr key={item._id}>
+              <tr
+                key={item._id}
+                onClick={() => handleOpenModal("view", item)} // Handle row click
+                style={{ cursor: "pointer" }}
+              >
                 <td>{item.company}</td>
                 <td>{item.position}</td>
                 <td>{item.status}</td>
@@ -170,13 +174,19 @@ const Home = () => {
                 </td>
                 <td className="d-flex gap-3">
                   <span
-                    onClick={() => handleOpenModal("edit", item)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent row click when clicking Edit
+                      handleOpenModal("edit", item);
+                    }}
                     style={{ cursor: "pointer", fontSize: "20px" }}
                   >
                     <MdCreate />
                   </span>
                   <span
-                    onClick={() => deleteJob(item)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent row click when clicking Delete
+                      deleteJob(item);
+                    }}
                     style={{ cursor: "pointer", fontSize: "20px" }}
                   >
                     <MdDelete />
@@ -236,8 +246,37 @@ const Home = () => {
           },
         }}
       >
-        <h2>{type === "add" ? "Add Job" : "Edit Job"}</h2>
-        <AddEditJobs jobData={data} type={type} getAllJobs={getAllJobs} />
+        <h2>
+          {type === "add"
+            ? "Add Job"
+            : type === "edit"
+            ? "Edit Job"
+            : "Job Details"}
+        </h2>
+        {type === "view" ? (
+          <>
+            <p>
+              <strong>Company:</strong> {data?.company}
+            </p>
+            <p>
+              <strong>Position:</strong> {data?.position}
+            </p>
+            <p>
+              <strong>Status:</strong> {data?.status}
+            </p>
+            <p>
+              <strong>Applied On:</strong>{" "}
+              {data?.appliedOn
+                ? moment.utc(data.appliedOn).format("Do MMM YYYY")
+                : "N/A"}
+            </p>
+            <p>
+              <strong>Interview Details:</strong> {data?.notes}
+            </p>
+          </>
+        ) : (
+          <AddEditJobs jobData={data} type={type} getAllJobs={getAllJobs} />
+        )}
         <button onClick={handleCloseModal} className="btn btn-secondary mt-3">
           Close
         </button>
