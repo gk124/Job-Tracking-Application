@@ -221,6 +221,9 @@ app.put("/edit-job/:jobId", authenticateToken, async (req, res) => {
         if (notes)
             job.notes = notes;
 
+        // Preserve existing appliedOn date
+        job.appliedOn = job.appliedOn || new Date();
+
         await job.save();
         return res.json({
             error: false,
