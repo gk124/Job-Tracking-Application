@@ -165,7 +165,7 @@ const Home = () => {
                 <td>{item.status}</td>
                 <td>
                   {item.appliedOn
-                    ? moment(item.appliedOn).format("Do MMM YYYY")
+                    ? moment.utc(item.appliedOn).format("Do MMM YYYY")
                     : "N/A"}
                 </td>
                 <td className="d-flex gap-3">
